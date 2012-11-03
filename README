@@ -1,0 +1,10 @@
+Template showing several different layouts and options for beamer
+slides produced with org-mode.
+
+Mostly based on:
+http://orgmode.org/worg/org-tutorials/org-beamer/tutorial.html
+http://draketo.de/light/english/politics-and-free-software/recipes-presentations-beamer-latex-using-emacs-org-mode
+http://emacs-fu.blogspot.fr/2009/10/writing-presentations-with-org-mode-and.html
+
+davide.gerbaudo@gmail.com
+Nov 2012

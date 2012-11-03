@@ -1,6 +1,12 @@
 Template showing several different layouts and options for beamer
 slides produced with org-mode.
 
+There seeems to be some some conflict with hyperref when exporting directly to pdf.
+I found two solutions:
+- add the needed \RequirePackage line with sed in the Makefile
+  (need to export tex first, then =make=)
+- export tex -> latex *tex -> dvipdf hyperref
+
 Mostly based on:
 http://orgmode.org/worg/org-tutorials/org-beamer/tutorial.html
 http://draketo.de/light/english/politics-and-free-software/recipes-presentations-beamer-latex-using-emacs-org-mode

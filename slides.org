@@ -36,7 +36,7 @@ enclose them in =columns=, =C-c C-b C=.
 	:END:
 With =:BEAMER_envargs: C[t]= the columns are aligned at the top.  The
 first column has a figure
-#+begin_ditaa blue.png -r -S
+#+begin_ditaa img/blue.png -r -S
 +-----------+
 | cBLU      |
 |      +----+
@@ -50,7 +50,7 @@ first column has a figure
 	:BEAMER_col: 0.5
 	:BEAMER_env: ignoreheading
 	:END:
-the second column has a table
+The second column has a table
 
 | col1 | col2                 |
 |------+----------------------|
@@ -239,4 +239,35 @@ return filename
 #+RESULTS:
 [[file:img/matplotlib.png]]
 
+
+
+* Layouts
+
+** Images
+*** Col1											  :BMCOL:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:BEAMER_env: ignoreheading
+	:END:
+#+begin_latex
+\includegraphics[width=1.00\textwidth]{img/placeholder8x6}
+\begin{picture}(0,0)
+\put(-100,2){PLACEHOLDER}
+\put(-100,-22){label two}
+\label{fig:placeholder}
+\end{picture}
+#+end_latex
+
+This is image (\ref{fig:placeholder})
+
+*** Col2											  :BMCOL:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:BEAMER_env: ignoreheading
+	:END:
+#+caption: Another image placeholder 8x6
+#+label: fig:placeholder
+file:img/placeholder8x6.eps
+
+This is image (\ref{fig:placeholder})
 

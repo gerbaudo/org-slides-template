@@ -1,0 +1,239 @@
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+TITLE:     Example org-mode + beamer
+#+AUTHOR:    Davide Gerbaudo
+#+EMAIL:     davide.gerbaudo@gmail.com
+#+DATE:      2012-06-12 Tue
+#+LaTeX_HEADER: \institute[ShortInst]{Full Name of my Institute}
+#+LaTeX_CLASS_OPTIONS: [compress,presentation]
+# # +LaTeX_CLASS_OPTIONS: [bigger]
+# # +LaTeX_CLASS_OPTIONS: [english,10pt,presentation]
+#+BEAMER_FRAME_LEVEL: 2
+#+BEAMER_HEADER_EXTRA: \usetheme{Madrid}\usecolortheme{default}
+# #+BEAMER_HEADER_EXTRA: \usetheme{Antibes}\usecolortheme{default}
+#+COLUMNS: %35ITEM %10BEAMER_env(ENV) %10BEAMER_envargs(Args) %4BEAMER_coL(CoL)
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+
+* First part
+
+** Hello GNU
+This is a normal block that can cover several columns. If you want to
+add several columns, and then have again full-width text, you need to
+enclose them in =columns=, =C-c C-b C=.
+
+*** just to have two cols									:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_env: columns
+	:BEAMER_envargs: C[t]
+	:END:
+**** a left column 									  :BMCOL:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:BEAMER_env: ignoreheading
+	:BEAMER_envargs: C[t]
+	:END:
+With =:BEAMER_envargs: C[t]= the columns are aligned at the top.  The
+first column has a figure
+#+begin_ditaa blue.png -r -S
++-----------+
+| cBLU      |
+|      +----+
+|  foo |cPNK| --> /----+
+|      |baz |     |bing|
++------+----+     +----/
+#+end_ditaa
+
+**** and a right column 							  :BMCOL:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:BEAMER_env: ignoreheading
+	:END:
+the second column has a table
+
+| col1 | col2                 |
+|------+----------------------|
+|    1 | ipse                 |
+|    2 | lorum                |
+|    3 | is simply dummy text |
+
+
+*** bottom													:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_env: ignoreheading
+	:END:
+You can put a lot of text underneath, and it can span several columns.
+
+** Slide with some code
+*** Code in a column 												  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.7
+	:END:
+#+begin_src python
+def funct():
+  <example block>
+#+end_src
+*** Code in a block 							  :BMCOL:B_block:
+	:PROPERTIES:
+	:BEAMER_col: 0.3
+	:BEAMER_env: block
+	:END:
+it's that easy
+#+begin_src cpp
+int main():
+  <example block>
+#+end_src
+
+** Two columns in commands
+*** Commands												  :BMCOL:B_block:
+	:PROPERTIES:
+	:BEAMER_col: 0.7
+	:BEAMER_env: block
+	:END:
+	(write example here)
+*** Result													  :BMCOL:B_block:
+	:PROPERTIES:
+	:BEAMER_col: 0.3
+	:BEAMER_env: block
+	:END:
+even easier and faster
+
+* Second part
+** Four blocks code
+*** Column 1										  :BMCOL:B_ignoreheading:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:BEAMER_env: ignoreheading
+	:END:
+
+*** One
+	in block one
+*** Three
+	in block three
+
+*** Column 2										  :B_ignoreheading:BMCOL:
+	:PROPERTIES:
+	:BEAMER_env: ignoreheading
+	:BEAMER_col: 0.5
+	:END:
+
+*** Two
+	in block two
+
+*** Four
+	in block four
+
+
+** Top aligned blocks
+*** Code															:B_block:
+	:PROPERTIES:
+	:BEAMER_env: block
+	:BEAMER_col: 0.5
+	:BEAMER_envargs: C[t]
+	:END:
+
+*** Result															:B_block:
+	:PROPERTIES:
+	:BEAMER_env: block
+	:BEAMER_col: 0.5
+	:END:
+pretty nice
+
+* Plots
+** gnuplot graphics
+This is a simple test of a gnuplot graphic. In the left column we have
+the code, and in the right column we see its output
+*** Code															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+LaTeX: \tiny
+#+begin_src gnuplot :exports code :file img/file.png
+reset
+set title "Putting it All Together"
+set xlabel "X"
+set xrange [-8:8]
+set xtics -8,2,8
+set ylabel "Y"
+set yrange [-20:70]
+set ytics -20,10,70
+f(x) = x**2
+g(x) = x**3
+h(x) = 10*sqrt(abs(x))
+plot f(x) w lp lw 1, g(x) w p lw 2, h(x) w l lw 3
+#+end_src
+
+*** Output															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+RESULTS:
+[[file:img/file.png]]
+
+** pyROOT
+You can do the same with pyroot.
+*** Code															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+LaTeX: \tiny
+#+begin_src python :results file
+import ROOT as r
+r.gROOT.SetBatch(1)
+r.gROOT.SetStyle('Modern')
+c1 = r.TCanvas("c1","a test function")
+c1.cd()
+f1 = r.TF1("f1","sin(x)/x",0.,10.)
+f1.Draw()
+filename='img/f1.png'
+c1.SaveAs(filename)
+print filename
+return filename
+#+end_src
+
+*** Output															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+RESULTS:
+[[file:img/f1.png]]
+
+** matplotlib
+If you need fancy drawing options, you can use matplotlib
+*** Code															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+LaTeX: \tiny
+#+begin_src python :results file
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+X, Y, Z = axes3d.get_test_data(0.05)
+ax.plot_surface(X, Y, Z, rstride=8, cstride=8, alpha=0.3)
+cset = ax.contour(X, Y, Z, zdir='z', offset=-100)
+cset = ax.contour(X, Y, Z, zdir='x', offset=-40)
+cset = ax.contour(X, Y, Z, zdir='y', offset=40)
+
+ax.set_xlabel('X')
+ax.set_xlim(-40, 40)
+ax.set_ylabel('Y')
+ax.set_ylim(-40, 40)
+ax.set_zlabel('Z')
+ax.set_zlim(-100, 100)
+
+plt.show()
+filename='img/matplotlib.png'
+plt.savefig(filename)
+return filename
+#+end_src
+
+*** Output															  :BMCOL:
+	:PROPERTIES:
+	:BEAMER_col: 0.5
+	:END:
+#+RESULTS:
+[[file:img/matplotlib.png]]
+
